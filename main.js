@@ -50,7 +50,7 @@
       hero_co: 'Hoa Tho - Phu Ninh Garment JSC',
       hero_h: 'Export-grade trousers, sewn in central Vietnam.',
       hero_lead: 'A trouser specialist for buyers in the EU, the US and Japan, backed by the Hoa Tho group and six decades of textile experience.',
-      hero_cta1: 'Request a quote', hero_cta2: 'Explore our factory', hero_hint: 'Scroll to pull up the next page',
+      hero_cta1: 'Request a quote', hero_cta2: 'Explore our factory', hero_hint: 'Scroll to explore',
       hero_art: 'Trousers with orange topstitching',
       fk_reg: 'Registered name', fk_en: 'English name', fk_est: 'Registered', fv_est: '15 March 2012',
       fk_grp: 'Group', fv_grp: 'Hoa Tho Textile-Garment Corporation, a member of Vinatex',
@@ -132,7 +132,7 @@
       hero_co: 'Công Ty Cổ Phần May Hòa Thọ - Phú Ninh',
       hero_h: 'Quần xuất khẩu chuẩn mực, may tại miền Trung Việt Nam.',
       hero_lead: 'Chuyên sản xuất quần cho khách hàng tại EU, Mỹ và Nhật Bản, với nền tảng từ tập đoàn Hòa Thọ và hơn sáu thập kỷ kinh nghiệm dệt may.',
-      hero_cta1: 'Yêu cầu báo giá', hero_cta2: 'Xem nhà máy', hero_hint: 'Cuộn để kéo trang tiếp theo lên',
+      hero_cta1: 'Yêu cầu báo giá', hero_cta2: 'Xem nhà máy', hero_hint: 'Cuộn để khám phá',
       hero_art: 'Chiếc quần với đường chỉ diễu màu cam',
       fk_reg: 'Tên đăng ký', fk_en: 'Tên quốc tế', fk_est: 'Đăng ký kinh doanh', fv_est: '15/03/2012',
       fk_grp: 'Hệ thống', fv_grp: 'Tổng công ty CP Dệt May Hòa Thọ, thành viên của Vinatex',
@@ -248,50 +248,13 @@
   function hdrState() { hdr.classList.toggle('sc', (window.pageYOffset || 0) > 12); }
   window.addEventListener('scroll', hdrState, { passive: true }); hdrState();
 
-  /* ---- the thread: a needle stuck in the top edge of each page, thread running up to the top of the screen ---- */
-  var NS = 'http://www.w3.org/2000/svg';
-  var pullSvg = $('#pull'), hint = $('#heroHint');
-  var pulls = $$('main > section.sec').map(function (sec, i) {
-    var g = document.createElementNS(NS, 'g');
-    var th = document.createElementNS(NS, 'path'); th.setAttribute('class', 'th');
-    var th2 = document.createElementNS(NS, 'path'); th2.setAttribute('class', 'th2');
-    var nd = document.createElementNS(NS, 'g');
-    nd.innerHTML = '<line x1="0" y1="9" x2="0" y2="-36" stroke="#101B33" stroke-width="3.8" stroke-linecap="round"/>' +
-      '<line x1="0" y1="9" x2="0" y2="-36" stroke="#DCE3EA" stroke-width="1.8" stroke-linecap="round"/>' +
-      '<ellipse cx="0" cy="-29" rx="1.3" ry="5" fill="#101B33"/>';
-    g.appendChild(th); g.appendChild(th2); g.appendChild(nd); g.style.display = 'none';
-    if (pullSvg) pullSvg.appendChild(g);
-    return { sec: sec, g: g, th: th, th2: th2, nd: nd, wrap: $('.wrap', sec), i: i, shown: false };
-  });
-  var pullQueued = false;
-  function updatePull() {
-    pullQueued = false;
-    var vh = window.innerHeight, vw = window.innerWidth, y = window.pageYOffset || 0;
-    if (hint) hint.style.opacity = clamp(1 - y / 140).toFixed(2);
-    if (reduce) return;
-    for (var k = 0; k < pulls.length; k++) {
-      var it = pulls[k], top = it.sec.getBoundingClientRect().top;
-      /* the page's content is lifted by the thread as its edge climbs the screen */
-      if (it.wrap) {
-        var p = clamp((vh - top) / (vh * 0.62));
-        it.wrap.style.transform = p >= 1 ? '' : 'translate3d(0,' + ((1 - p) * 70).toFixed(1) + 'px,0)';
-      }
-      var show = top < vh - 2 && top > 26;
-      if (!show) { if (it.shown) { it.g.style.display = 'none'; it.shown = false; } continue; }
-      if (!it.shown) { it.g.style.display = ''; it.shown = true; }
-      /* hugs the left edge, in the page margin, and sways only a few pixels so it never crosses text */
-      var x = Math.min(26, Math.max(11, vw * 0.02)), ey = top - 29;
-      var amp = Math.min(7, x - 5) * clamp(top / vh) * Math.sin(top * 0.011 + it.i);
-      var d = 'M' + x.toFixed(1) + ',-12 C' + (x + amp).toFixed(1) + ',' + (ey * 0.3).toFixed(1) + ' ' + (x - amp).toFixed(1) + ',' + (ey * 0.7).toFixed(1) + ' ' + x.toFixed(1) + ',' + ey.toFixed(1);
-      it.th.setAttribute('d', d); it.th2.setAttribute('d', d);
-      it.nd.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + top.toFixed(1) + ')');
-      it.g.style.opacity = clamp((top - 26) / 60).toFixed(2);
-    }
-  }
-  function queuePull() { if (!pullQueued) { pullQueued = true; requestAnimationFrame(updatePull); } }
-  window.addEventListener('scroll', queuePull, { passive: true });
-  window.addEventListener('resize', queuePull);
-  updatePull();
+  /* ---- scroll hint fades out once the page moves ---- */
+  var hint = $('#heroHint');
+  function updateHint() { if (hint) hint.style.opacity = clamp(1 - (window.pageYOffset || 0) / 140).toFixed(2); }
+  function updatePull() { updateHint(); }
+  function queuePull() { updateHint(); }
+  window.addEventListener('scroll', updateHint, { passive: true });
+  updateHint();
 
   /* ---- thread timelines (about + process) ---- */
   var threads = [];
@@ -499,6 +462,109 @@
   window.addEventListener('scroll', checkReveals, { passive: true });
   window.addEventListener('resize', checkReveals);
   checkReveals();
+
+
+  /* ---- scroll polish: progress thread, hero depth, image parallax, count-up ---- */
+  (function () {
+    if (reduce) return;
+    var prog = $('#prog'), heroGrid = $('.hero-grid');
+    addScrub(function () {
+      var m = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      return clamp((window.pageYOffset || 0) / m);
+    }, function (v) { if (prog) prog.style.setProperty('--p', v.toFixed(4)); }, 0.2);
+    if (heroGrid) addScrub(function () {
+      return clamp((window.pageYOffset || 0) / Math.max(1, window.innerHeight));
+    }, function (v) { heroGrid.style.setProperty('--hp', v.toFixed(4)); }, 0.12);
+
+    $$('.fx-fig img').forEach(function (img) {
+      var ph = document.createElement('div'); ph.className = 'fx-ph';
+      img.parentNode.insertBefore(ph, img); ph.appendChild(img);
+      addScrub(function () {
+        var r = ph.getBoundingClientRect(), vh = window.innerHeight;
+        return clamp((vh - r.top) / (vh + r.height));
+      }, function (v) { img.style.setProperty('--py', ((v - 0.5) * 10).toFixed(2)); }, 0.12);
+    });
+
+    var stats = $('.ab-stats');
+    if (stats) {
+      var nums = $$('strong', stats).map(function (el) {
+        var m = /^(\d+)(.*)$/.exec(el.textContent.trim()); if (!m) return null;
+        var end = parseInt(m[1], 10);
+        return { el: el, end: end, suf: m[2], from: end > 1000 ? end - 50 : 0 };
+      }).filter(Boolean);
+      nums.forEach(function (n) { n.el.textContent = n.from + n.suf; });
+      var started = false;
+      var run = function () {
+        var t0 = null;
+        (function step(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min(1, (ts - t0) / 1500), e = 1 - Math.pow(1 - p, 3);
+          nums.forEach(function (n) { n.el.textContent = Math.round(n.from + (n.end - n.from) * e) + n.suf; });
+          if (p < 1) requestAnimationFrame(step);
+        })(performance.now());
+      };
+      var chk = function () {
+        if (started) return;
+        if (stats.getBoundingClientRect().top < window.innerHeight * 0.85) { started = true; setTimeout(run, 250); }
+      };
+      window.addEventListener('scroll', chk, { passive: true }); chk();
+    }
+    kick();
+  })();
+
+
+  /* ---- falling thread spools: a few drop down the screen whenever the page scrolls ---- */
+  (function () {
+    if (reduce) return;
+    var box = document.createElement('div'); box.className = 'fall'; box.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(box);
+    var COLORS = ['#E4631F', '#1F3A5F', '#2E5283', '#B3450E', '#CDB98A'];
+    var parts = [], raf = 0, last = 0, lastY = window.pageYOffset || 0, acc = 0, lastSpawn = 0;
+    var small = window.matchMedia('(max-width: 700px)').matches;
+    var MAX = small ? 5 : 7;
+    function spoolSvg(c) {
+      return '<svg width="26" height="32" viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg">' +
+        '<rect x="5" y="5" width="14" height="20" fill="' + c + '" stroke="#101B33" stroke-width="1"/>' +
+        '<path d="M5 9h14M5 13h14M5 17h14M5 21h14" stroke="rgba(255,255,255,.38)" stroke-width="1"/>' +
+        '<rect x="2" y="1" width="20" height="4.5" rx="1.5" fill="#E3D3A6" stroke="#101B33" stroke-width="1"/>' +
+        '<rect x="2" y="24.5" width="20" height="4.5" rx="1.5" fill="#E3D3A6" stroke="#101B33" stroke-width="1"/></svg>';
+    }
+    function spawn() {
+      if (parts.length >= MAX) return;
+      var c = COLORS[Math.floor(Math.random() * COLORS.length)];
+      var el = document.createElement('div'); el.className = 'sp'; el.style.setProperty('--c', c);
+      var s = 0.7 + Math.random() * 0.55;
+      el.innerHTML = '<span class="tail"></span><span class="rot">' + spoolSvg(c) + '</span>';
+      box.appendChild(el);
+      parts.push({
+        el: el, rot: el.querySelector('.rot'), s: s,
+        x: 12 + Math.random() * (window.innerWidth - 40), y: -50,
+        vy: 90 + Math.random() * 120, sway: 6 + Math.random() * 16, ph: Math.random() * 6.28,
+        r: Math.random() * 360, vr: (Math.random() - 0.5) * 260, t: 0
+      });
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    }
+    function tick(now) {
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var vh = window.innerHeight;
+      for (var i = parts.length - 1; i >= 0; i--) {
+        var p = parts[i];
+        p.t += dt; p.vy += 760 * dt; p.y += p.vy * dt; p.r += p.vr * dt;
+        var x = p.x + Math.sin(p.t * 3 + p.ph) * p.sway;
+        p.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + p.y.toFixed(1) + 'px,0) scale(' + p.s.toFixed(2) + ')';
+        p.rot.style.transform = 'rotate(' + p.r.toFixed(0) + 'deg)';
+        p.el.style.opacity = Math.min(0.95, p.t * 6).toFixed(2);
+        p.el.firstChild.style.height = Math.min(110, 18 + p.vy * 0.12).toFixed(0) + 'px';
+        if (p.y > vh + 60) { box.removeChild(p.el); parts.splice(i, 1); }
+      }
+      raf = parts.length ? requestAnimationFrame(tick) : 0;
+    }
+    window.addEventListener('scroll', function () {
+      var y = window.pageYOffset || 0; acc += Math.abs(y - lastY); lastY = y;
+      var now = performance.now();
+      if (acc > 170 && now - lastSpawn > 110) { acc = 0; lastSpawn = now; spawn(); if (Math.random() < 0.35) spawn(); }
+    }, { passive: true });
+  })();
 
   /* ================= contact form -> opens the visitor's email app ================= */
   var form = $('#form'), err = $('#err'), sent = $('#sent'), copied = $('#copied');
