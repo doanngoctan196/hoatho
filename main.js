@@ -10,6 +10,16 @@
   /* ================= i18n (EN / VI) ================= */
   var D = {
     en: {
+      n_factory: 'Factory',
+      fx_h: 'Inside our sewing floor.', fx_lead: 'One roof, one product: trousers cut, sewn, pressed, checked and packed in the same factory.',
+      fx_p1: 'Our factory in the Chợ Lò Industrial Cluster runs long, open sewing halls where operators work in lines, each station handling one operation such as waistband, fly, pockets, side seams or hem. Work moves from station to station in baskets and on racks, so every garment is easy to track.',
+      fx_p2: 'After sewing, trousers go to pressing and finishing, then to inspection. Passed pieces and pieces that need rework are kept on separate, clearly labelled racks, and only approved garments move on to packing and the warehouse.',
+      fx1_t: 'Sewing lines', fx1_p: 'Line-based production with clear stations and visible quality and productivity boards.',
+      fx2_t: 'Pressing and finishing', fx2_p: 'Dedicated pressing machines and finishing stations at the end of each line.',
+      fx3_t: 'Inspection', fx3_p: 'Passed goods and rework goods are separated before anything is packed.',
+      fx4_t: 'Packing and storage', fx4_p: 'Cartons are packed to buyer instructions and staged on pallets for shipping.',
+      fx_cap1: 'The main aisle of a sewing hall, with lines on both sides.', fx_cap2: 'Operators sewing trousers along a production line.', fx_cap3: 'Two views of the sewing floor: workstations and fabric bundles.', fx_cap4: 'Line 5 pressing and inspection, with separate racks for passed and rework goods.', fx_cap5: 'Finished goods packed in cartons and staged on pallets.',
+      fx_alt1: 'Central aisle of the garment factory with sewing lines on both sides', fx_alt2: 'Rows of operators in blue uniforms sewing trousers on a production line', fx_alt3: 'Two panoramic views of the sewing floor with workstations and fabric bundles', fx_alt4: 'Line 5 pressing machines and racks of finished trousers sorted into passed and rework', fx_alt5: 'Workers at sewing tables beside stacked cartons and pallets in the warehouse',
       title: 'Hoa Tho - Phu Ninh Garment JSC | Trouser manufacturer, Vietnam',
       desc: 'Hoa Tho - Phu Ninh Garment JSC sews trousers for buyers in the EU, the US and Japan. Part of the Hoa Tho group, whose roots go back to 1962.',
       brand: 'Hoa Tho - Phu Ninh', n_about: 'About', n_products: 'Trousers', n_markets: 'Markets', n_process: 'Process', n_contact: 'Contact',
@@ -62,6 +72,16 @@
       mailSubject: 'Inquiry from ', mailName: 'Name', mailEmail: 'Email', mailCo: 'Company', mailMk: 'Destination market'
     },
     vi: {
+      n_factory: 'Nhà máy',
+      fx_h: 'Bên trong xưởng may của chúng tôi.', fx_lead: 'Một nhà máy, một sản phẩm: quần được cắt, may, ủi, kiểm tra và đóng gói ngay trong cùng một cơ sở.',
+      fx_p1: 'Nhà máy tại Cụm công nghiệp Chợ Lò vận hành các xưởng may rộng, thông thoáng, nơi công nhân làm việc theo chuyền, mỗi vị trí đảm nhận một công đoạn như cạp quần, đáy quần, túi, đường sườn hoặc lai quần. Bán thành phẩm di chuyển giữa các vị trí bằng rổ và giá treo, giúp việc theo dõi từng sản phẩm dễ dàng.',
+      fx_p2: 'Sau khi may, quần được chuyển sang ủi và hoàn thiện, rồi đến khâu kiểm tra. Hàng đạt và hàng cần sửa được để riêng trên các giá có dán nhãn rõ ràng; chỉ hàng đã được duyệt mới chuyển sang đóng gói và vào kho.',
+      fx1_t: 'Chuyền may', fx1_p: 'Sản xuất theo chuyền với các vị trí rõ ràng, có bảng chất lượng và năng suất đặt ngay tại xưởng.',
+      fx2_t: 'Ủi và hoàn thiện', fx2_p: 'Máy ủi chuyên dụng và khu hoàn thiện ở cuối mỗi chuyền.',
+      fx3_t: 'Kiểm tra', fx3_p: 'Hàng đạt và hàng cần sửa được tách riêng trước khi đóng gói.',
+      fx4_t: 'Đóng gói và lưu kho', fx4_p: 'Thùng carton được đóng theo hướng dẫn của khách hàng và xếp trên pallet để chuẩn bị xuất hàng.',
+      fx_cap1: 'Lối đi chính của xưởng may, chuyền may ở hai bên.', fx_cap2: 'Công nhân may quần trên chuyền sản xuất.', fx_cap3: 'Hai góc nhìn toàn cảnh xưởng may: vị trí làm việc và các bó vải.', fx_cap4: 'Khu ủi và kiểm tra chuyền 5, có giá riêng cho hàng đạt và hàng cần sửa.', fx_cap5: 'Thành phẩm đóng thùng carton và xếp trên pallet.',
+      fx_alt1: 'Lối đi giữa xưởng may với các chuyền may ở hai bên', fx_alt2: 'Công nhân mặc đồng phục xanh may quần trên chuyền sản xuất', fx_alt3: 'Hai góc nhìn toàn cảnh xưởng may với các vị trí làm việc và bó vải', fx_alt4: 'Máy ủi chuyền 5 và giá treo quần thành phẩm phân loại hàng đạt, hàng cần sửa', fx_alt5: 'Công nhân tại bàn may cạnh các thùng carton xếp trên pallet trong kho',
       title: 'Công Ty Cổ Phần May Hòa Thọ - Phú Ninh | Sản xuất quần xuất khẩu',
       desc: 'Công Ty Cổ Phần May Hòa Thọ - Phú Ninh may quần cho khách hàng tại EU, Mỹ và Nhật Bản. Thuộc hệ thống Hòa Thọ, với gốc rễ từ năm 1962.',
       brand: 'Hòa Thọ - Phú Ninh', n_about: 'Giới thiệu', n_products: 'Sản phẩm', n_markets: 'Thị trường', n_process: 'Quy trình', n_contact: 'Liên hệ',
@@ -122,6 +142,7 @@
     var md = $('meta[name="description"]'); if (md) md.setAttribute('content', t.desc);
     $$('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (t[k] != null) el.textContent = t[k]; });
     $$('[data-i18n-aria]').forEach(function (el) { var k = el.getAttribute('data-i18n-aria'); if (t[k] != null) el.setAttribute('aria-label', t[k]); });
+    $$('[data-i18n-alt]').forEach(function (el) { var k = el.getAttribute('data-i18n-alt'); if (t[k] != null) el.setAttribute('alt', t[k]); });
     $$('[data-i18n-title]').forEach(function (el) { var k = el.getAttribute('data-i18n-title'); if (t[k] != null) el.setAttribute('title', t[k]); });
     var mf = $('#mapFrame');
     if (mf) { var mu = mf.getAttribute('data-src-base') + '&hl=' + lang; if (mf.getAttribute('src') !== mu) mf.setAttribute('src', mu); }
