@@ -45,10 +45,6 @@ section[id]{scroll-margin-top:var(--hdr)}
 .btn.ghost:hover{background:var(--ink);color:var(--paper);border-style:solid}
 .hdr-cta.btn{min-height:44px;padding:0 20px;font-size:.88rem}
 
-/* ---------- thread that pulls the next page up (fixed overlay) ---------- */
-.pull{position:fixed;left:0;top:0;width:100%;height:100%;z-index:40;pointer-events:none;overflow:visible}
-.pull path.th{fill:none;stroke:var(--thread);stroke-width:2.6;stroke-linecap:round}
-.pull path.th2{fill:none;stroke:rgba(255,255,255,.35);stroke-width:.8;stroke-linecap:round}
 
 /* ---------- hero (static) ---------- */
 .hero{position:relative}
@@ -316,10 +312,29 @@ footer strong{color:#fff;font-family:var(--f-display);font-size:1.1rem}
 }
 @media (min-width:1000px){.fx-gal{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
+/* scroll polish: progress thread, hero depth, image parallax */
+.prog{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none}
+.prog i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--thread) 0 8px,transparent 8px 12px);clip-path:inset(0 calc(100% - var(--p,0) * 100%) 0 0)}
+.hero-grid{--hp:0}
+.hero-art svg{transform:translate3d(0,calc(var(--hp) * 70px),0);will-change:transform}
+.hero-photo{transform:translate3d(0,calc(var(--hp) * -60px),0) rotate(calc(-2.5deg + var(--hp) * 2deg))}
+.hero-copy{transform:translate3d(0,calc(var(--hp) * -30px),0);opacity:calc(1 - var(--hp) * .6)}
+.fx-ph{overflow:hidden;border-radius:2px;background:var(--paper2)}
+.fx-ph img{--py:0;transform:scale(1.16) translate3d(0,calc(var(--py) * 1%),0);will-change:transform;border-radius:0!important}
+@media (prefers-reduced-motion:reduce){.prog{display:none}.hero-art svg,.hero-photo,.hero-copy{transform:none!important;opacity:1!important}.hero-photo{transform:rotate(-2.5deg)!important}.fx-ph img{transform:none}}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .js [data-rv]{clip-path:none!important}
   .js .thread{--p:1!important}
-  .hero-hint,.pull{display:none}
+  .hero-hint{display:none}
 }
+
+/* falling thread spools (scroll effect) */
+.fall{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:45}
+.sp{position:absolute;left:0;top:0;width:26px;height:32px;will-change:transform,opacity;opacity:0}
+.sp .rot{display:block;width:26px;height:32px}
+.sp svg{display:block}
+.sp .tail{position:absolute;left:50%;bottom:100%;width:1.6px;height:24px;margin-left:-.8px;background:linear-gradient(to top,var(--c),transparent)}
+@media (prefers-reduced-motion:reduce){.fall{display:none}}
